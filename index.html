@@ -12,19 +12,18 @@ font-family:Arial;
 background:#0b1220;
 }
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 .container{
 max-width:850px;
 margin:40px auto;
 background:white;
-padding:35px;
+padding:40px;
 border-radius:10px;
 position:relative;
 }
 
+/* HEADER */
 .header{
 display:flex;
 align-items:center;
@@ -70,31 +69,35 @@ border-radius:5px;
 border:1px solid #ccc;
 }
 
+/* TEXT */
 .text{
 margin-top:20px;
 line-height:1.6;
 }
 
+/* SIGNATURES */
 .signatures{
-margin-top:80px;
+margin-top:90px;
 display:flex;
 justify-content:space-between;
 gap:40px;
 }
 
+/* BLOCK SIGNATURE */
 .sig{
 width:45%;
 text-align:center;
 position:relative;
-padding-top:40px;
-overflow:visible;
+padding-top:60px;
 }
 
+/* EMPLOYE */
 .sig-right{
 width:45%;
 text-align:center;
 }
 
+/* SIGNATURE LINE */
 .line{
 border-top:2px solid black;
 margin-top:15px;
@@ -104,66 +107,68 @@ font-size:18px;
 outline:none;
 }
 
-.sig small{
-display:block;
-margin-top:5px;
-font-size:12px;
-}
-
-/* CACHET PRO */
+/* CACHET PRO FIX */
 .stamp-overlay{
 position:absolute;
-top:-10px;
+top:-20px;
 left:50%;
-transform:translateX(-50%) rotate(-4deg);
+transform:translateX(-50%) rotate(-3deg);
 z-index:10;
 }
 
 .stamp-box{
-width:150px;
-border:2px solid red;
-padding:6px;
+width:165px;
+border:3px solid red;
+padding:10px;
 text-align:center;
-background:rgba(255,255,255,0.95);
+background:white;
 color:red;
 font-weight:bold;
-font-size:10px;
-box-shadow:0 2px 6px rgba(0,0,0,0.2);
+font-size:11px;
+box-shadow:0 3px 10px rgba(0,0,0,0.25);
+border-radius:8px;
+position:relative;
+}
+
+/* DOUBLE CADRE INTERNE */
+.stamp-box::before{
+content:"";
+position:absolute;
+top:6px;
+left:6px;
+right:6px;
+bottom:6px;
+border:1px solid red;
+border-radius:6px;
+opacity:0.6;
+pointer-events:none;
+}
+
+/* TEXTES EDITABLES */
 .stamp-edit{
 outline:none;
+display:block;
 cursor:text;
-font-size:10px;
+font-size:11px;
 font-weight:bold;
 color:red;
-padding:2px 0;
 }
 
-.stamp-box{
-width:150px;
-border:2px solid red;
-padding:6px;
-text-align:center;
-background:rgba(255,255,255,0.95);
-color:red;
-font-weight:bold;
-font-size:10px;
-box-shadow:0 2px 6px rgba(0,0,0,0.2);
-
-}
-
+/* CENTRE */
 .st-mid{
-font-size:16px;
-margin:2px 0;
+font-size:18px;
+margin:5px 0;
 }
 
+/* SIGNATURE DRAW */
 .signature-draw{
 width:140px;
 height:45px;
-margin-top:4px;
+margin-top:5px;
 cursor:pointer;
-display:block;
 }
 
+/* BUTTON */
 button{
 margin-top:25px;
 width:100%;
@@ -175,6 +180,7 @@ font-weight:bold;
 cursor:pointer;
 }
 
+/* POPUP */
 #popup{
 position:fixed;
 top:0;
@@ -194,12 +200,13 @@ border-radius:10px;
 text-align:center;
 }
 
+/* PDF FIX IMPORTANT */
 @media print {
 .container{
 width:210mm;
 min-height:297mm;
-margin:0;
 padding:20mm;
+margin:0;
 }
 }
 </style>
@@ -210,6 +217,7 @@ padding:20mm;
 
 <div class="container" id="contrat">
 
+<!-- HEADER -->
 <div class="header">
 
 <div class="logo-box" onclick="logoInput.click()">
@@ -220,11 +228,9 @@ padding:20mm;
 <div class="title">CONTRAT DE TRAVAIL</div>
 
 <div style="width:90px;"></div>
-
 </div>
 
-
-<!-- INFOS -->
+<!-- FORM -->
 <label>Nom entreprise</label>
 <div contenteditable="true" id="companyName" class="line">Lesfacilitateurs Groupe</div>
 
@@ -236,11 +242,11 @@ padding:20mm;
 
 <label>Type de contrat</label>
 <select>
-  <option>CDI</option>
-  <option>CDD</option>
-  <option>Stage</option>
-  <option>Tâcheron</option>
-  <option>Consultant</option>
+<option>CDI</option>
+<option>CDD</option>
+<option>Stage</option>
+<option>Tâcheron</option>
+<option>Consultant</option>
 </select>
 
 <label>Date début</label>
@@ -249,53 +255,59 @@ padding:20mm;
 <label>Date fin</label>
 <input type="date">
 
-<label>Salaire / montant</label>
+<label>Salaire</label>
 <input value="150 000 FCFA">
-<label>avance</label>
+
+<label>Avance</label>
 <input value="150 000 FCFA">
-<label>reste</label>
+
+<label>Reste</label>
 <input value="150 000 FCFA">
 
 <div class="text">
-<p>Ce contrat engage les deux parties selon les lois en vigueur et définit les obligations professionnelles.</p>
+<p>Ce contrat engage les deux parties selon les lois en vigueur.</p>
 </div>
 
+<!-- SIGNATURES -->
 <div class="signatures">
 
+<!-- ENTREPRISE -->
 <div class="sig">
 
-<div class="line" contenteditable="true">Lesfacilitateurs Groupe</div>
+<div class="line" contenteditable="true">
+Lesfacilitateurs Groupe
+</div>
+
 <small>Signature entreprise</small>
 
-<div class="stamp-overlay">
-
+<!-- CACHET -->
 <div class="stamp-overlay">
 
 <div class="stamp-box">
 
-<!-- 🔴 TEXTE HAUT EDITABLE -->
-<div contenteditable="true" class="stamp-edit">
+<div class="stamp-edit" contenteditable="true">
 ETS LESFACILITATEURS GROUPE
 </div>
 
 <div class="st-mid">★</div>
 
-<!-- 🔴 TEXTE BAS EDITABLE -->
-<div contenteditable="true" class="stamp-edit">
+<div class="stamp-edit" contenteditable="true">
 YAOUNDÉ • +237 670 035 609
 </div>
 
 </div>
+</div>
 
 </div>
 
+<!-- EMPLOYÉ -->
 <div class="sig-right">
 
 <div class="line" contenteditable="true">
-Signature Employé
+Signature Employé / Client
 </div>
 
-<small>Signature client</small>
+<small>Signature employé</small>
 
 </div>
 
@@ -305,6 +317,7 @@ Signature Employé
 
 </div>
 
+<!-- POPUP -->
 <div id="popup">
 <div class="popup-box">
 <h3>Code d'accès</h3>
@@ -329,32 +342,37 @@ reader.readAsDataURL(file);
 }
 });
 
-// PDF FIX FINAL
+// PDF FIX STABLE
 function downloadPDF(){
 
 let btn=document.getElementById("btnPdf");
 btn.innerText="Génération...";
 btn.disabled=true;
 
+const element=document.getElementById("contrat");
+
 html2pdf().set({
-margin:10,
+margin:[10,10,12,10],
 filename:'contrat.pdf',
-image:{type:'jpeg',quality:0.9},
-html2canvas:{scale:1.2,useCORS:true},
-jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-}).from(document.getElementById("contrat")).save()
+image:{type:'jpeg',quality:0.95},
+html2canvas:{
+scale:1.5,
+useCORS:true,
+scrollY:0
+},
+jsPDF:{
+unit:'mm',
+format:'a4',
+orientation:'portrait'
+}
+}).from(element).save()
 .then(()=>{
 btn.innerText="📄 Télécharger PDF";
 btn.disabled=false;
-html2canvas:{
-scale:1.2,
-useCORS:true,
-scrollY:0
-}
 });
 }
 
-// POPUP
+// CODE ACCESS
 function check(){
 if(code.value==="233"){
 popup.style.display="none";

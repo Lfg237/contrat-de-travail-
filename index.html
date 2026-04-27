@@ -129,6 +129,26 @@ color:red;
 font-weight:bold;
 font-size:10px;
 box-shadow:0 2px 6px rgba(0,0,0,0.2);
+.stamp-edit{
+outline:none;
+cursor:text;
+font-size:10px;
+font-weight:bold;
+color:red;
+padding:2px 0;
+}
+
+.stamp-box{
+width:150px;
+border:2px solid red;
+padding:6px;
+text-align:center;
+background:rgba(255,255,255,0.95);
+color:red;
+font-weight:bold;
+font-size:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+
 }
 
 .st-mid{
@@ -249,16 +269,20 @@ padding:20mm;
 
 <div class="stamp-overlay">
 
+<div class="stamp-overlay">
+
 <div class="stamp-box">
-<div id="stampTop">ETS LESFACILITATEURS GROUPE</div>
+
+<!-- 🔴 TEXTE HAUT EDITABLE -->
+<div contenteditable="true" class="stamp-edit">
+ETS LESFACILITATEURS GROUPE
+</div>
+
 <div class="st-mid">★</div>
-<div id="stampBottom">YAOUNDÉ • +237 670 035 609</div>
 
-<svg viewBox="0 0 200 60" class="signature-draw">
-<path d="M5 38 C20 10, 40 55, 65 30 S105 35, 125 42 S150 48, 180 25"
-stroke="black" stroke-width="2" fill="none"/>
-</svg>
-
+<!-- 🔴 TEXTE BAS EDITABLE -->
+<div contenteditable="true" class="stamp-edit">
+YAOUNDÉ • +237 670 035 609
 </div>
 
 </div>
@@ -322,6 +346,11 @@ jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
 .then(()=>{
 btn.innerText="📄 Télécharger PDF";
 btn.disabled=false;
+html2canvas:{
+scale:1.2,
+useCORS:true,
+scrollY:0
+}
 });
 }
 

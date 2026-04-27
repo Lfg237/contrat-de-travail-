@@ -298,8 +298,7 @@ Signature Employé / client
 
 </div>
 
-<button onclick="openPopup()">📄 Télécharger PDF</button>
-
+<button onclick="downloadPDF()" id="btnPdf">📄 Télécharger PDF</button>
 </div>
 
 <!-- POPUP -->
@@ -358,29 +357,41 @@ path.setAttribute("d", newPath);
 }
 
 // POPUP
-function openPopup(){
-popup.style.display="flex";
-}
+function downloadPDF(){
 
-function check(){
-if(code.value==="233"){
-popup.style.display="none";
-html2pdf()
-.set({
-margin: [10, 10, 15, 10], // 🔴 haut, gauche, bas, droite
+let btn = document.getElementById("btnPdf");
+btn.innerText = "Génération...";
+btn.disabled = true;
+
+const element = document.getElementById("contrat");
+
+const opt = {
+margin: [10, 10, 12, 10],
 filename: 'contrat.pdf',
-image: { type: 'jpeg', quality: 0.98 },
-html2canvas: { scale: 2, useCORS: true },
-jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+image: { type: 'jpeg', quality: 0.95 },
+html2canvas: {
+scale: 1.5,   // 🔴 réduit = plus rapide
+useCORS: true,
+scrollY: 0
+},
+jsPDF: {
+unit: 'mm',
+format: 'a4',
+orientation: 'portrait'
+},
 pagebreak: { mode: ['css', 'legacy'] }
-})
-.from(document.getElementById("contrat"))
-.save();
-}else{
-err.innerText="Code incorrect";
-}
-}
+};
 
+html2pdf()
+.set(opt)
+.from(element)
+.save()
+.then(() => {
+btn.innerText = "📄 Télécharger PDF";
+btn.disabled = false;
+});
+
+}
 </script>
 
 </body>

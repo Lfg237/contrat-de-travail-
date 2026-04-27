@@ -165,6 +165,15 @@ display:none;
 justify-content:center;
 align-items:center;
 }
+@media print {
+.container{
+width:210mm;
+min-height:297mm;
+}
+.container{
+margin:40px auto;
+padding:40px 35px; /* 🔴 augmente l’espace haut/bas */
+}
 
 .popup-box{
 background:white;
@@ -356,7 +365,17 @@ popup.style.display="flex";
 function check(){
 if(code.value==="233"){
 popup.style.display="none";
-html2pdf().from(document.getElementById("contrat")).save();
+html2pdf()
+.set({
+margin: [10, 10, 15, 10], // 🔴 haut, gauche, bas, droite
+filename: 'contrat.pdf',
+image: { type: 'jpeg', quality: 0.98 },
+html2canvas: { scale: 2, useCORS: true },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+pagebreak: { mode: ['css', 'legacy'] }
+})
+.from(document.getElementById("contrat"))
+.save();
 }else{
 err.innerText="Code incorrect";
 }

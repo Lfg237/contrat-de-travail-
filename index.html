@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrat PRO FINAL</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0b1220;
+}
+
+.container{
+max-width:850px;
+margin:40px auto;
+background:white;
+padding:35px;
+border-radius:10px;
+position:relative;
+}
+
+/* HEADER */
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+}
+
+.logo-box{
+width:90px;
+height:90px;
+border-radius:10px;
+border:2px solid gold;
+overflow:hidden;
+background:white;
+cursor:pointer;
+}
+
+.logo-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.title{
+flex:1;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+color:gold;
+}
+
+/* FORM */
+label{
+font-weight:bold;
+display:block;
+margin-top:10px;
+}
+
+input, select{
+width:100%;
+padding:8px;
+margin-top:5px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+/* TEXT */
+.text{
+margin-top:20px;
+line-height:1.6;
+}
+
+/* SIGNATURES */
+.signatures{
+margin-top:80px;
+display:flex;
+justify-content:space-between;
+gap:40px;
+}
+
+.sig{
+width:45%;
+text-align:center;
+position:relative;
+}
+
+.sig-right{
+width:45%;
+text-align:center;
+}
+
+.line{
+border-top:2px solid black;
+margin-top:15px;
+padding-top:5px;
+font-family:cursive;
+font-size:18px;
+outline:none;
+}
+
+.sig small{
+display:block;
+margin-top:5px;
+font-size:12px;
+}
+
+/* CACHEt réduit + pro */
+.stamp-overlay{
+position:absolute;
+top:-25px;
+left:50%;
+transform:translateX(-50%) rotate(-5deg);
+}
+
+.stamp-box{
+width:155px;
+border:2px solid red;
+padding:5px;
+text-align:center;
+background:rgba(255,255,255,0.85);
+color:red;
+font-weight:bold;
+font-size:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+}
+
+.st-mid{
+font-size:16px;
+margin:2px 0;
+}
+
+/* SIGNATURE DESSINÉE AMÉLIORÉE */
+.signature-draw{
+width:130px;
+height:35px;
+margin-top:3px;
+cursor:pointer;
+}
+
+/* BUTTON */
+button{
+margin-top:25px;
+width:100%;
+padding:12px;
+background:gold;
+border:none;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* POPUP */
+#popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:white;
+padding:20px;
+border-radius:10px;
+text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container" id="contrat">
+
+<!-- HEADER -->
+<div class="header">
+
+<div class="logo-box" onclick="logoInput.click()">
+<img id="logoPreview" src="https://via.placeholder.com/90">
+<input type="file" id="logoInput" hidden>
+</div>
+
+<div class="title">CONTRAT DE TRAVAIL</div>
+
+<div style="width:90px;"></div>
+
+</div>
+
+<!-- INFOS -->
+<label>Nom entreprise</label>
+<div contenteditable="true" id="companyName" class="line">Lesfacilitateurs Groupe</div>
+
+<label>Nom employé / client</label>
+<input placeholder="Nom complet">
+
+<label>Poste / tâche</label>
+<input value="Chargé(e) de mission">
+
+<label>Type de contrat</label>
+<select>
+  <option>CDI</option>
+  <option>CDD</option>
+  <option>Stage</option>
+  <option>Tâcheron</option>
+  <option>Consultant</option>
+</select>
+
+<label>Date début</label>
+<input type="date">
+
+<label>Date fin</label>
+<input type="date">
+
+<label>Salaire / montant</label>
+<input value="150 000 FCFA">
+<label>avance</label>
+<input value="150 000 FCFA">
+<label>reste</label>
+<input value="150 000 FCFA">
+
+
+
+<div class="text">
+<p>
+Ce contrat engage les deux parties selon les lois en vigueur et définit les obligations professionnelles.
+</p>
+</div>
+
+<!-- SIGNATURES -->
+<div class="signatures">
+
+<!-- ENTREPRISE -->
+<div class="sig">
+
+<div class="line" contenteditable="true">
+Lesfacilitateurs Groupe
+</div>
+
+<small>Signature entreprise</small>
+
+<!-- CACHEt + SIGNATURE -->
+<div class="stamp-overlay">
+
+<div class="stamp-box">
+
+<div id="stampTop" onclick="editStamp('top')">
+ETS LESFACILITATEURS GROUPE
+</div>
+
+<div class="st-mid">★</div>
+
+<div id="stampBottom" onclick="editStamp('bottom')">
+YAOUNDÉ NYOM3 • +237 670 035 609
+</div>
+
+<!-- SIGNATURE DESSINÉE -->
+<svg viewBox="0 0 200 60" class="signature-draw" onclick="editSignature()">
+<path id="signaturePath"
+d="M5 38 C20 10, 40 55, 65 30 S105 35, 125 42 S150 48, 180 25"
+stroke="black"
+stroke-width="2"
+fill="none"/>
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- EMPLOYÉ -->
+<div class="sig-right">
+
+<div class="line" contenteditable="true">
+Signature Employé / client
+</div>
+
+<small>Signature employé / client</small>
+
+</div>
+
+</div>
+
+<button onclick="openPopup()">📄 Télécharger PDF</button>
+
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+<div class="popup-box">
+<h3>Code d'accès</h3>
+<input type="password" id="code">
+<br><br>
+<button onclick="check()">Valider</button>
+<p id="err" style="color:red;"></p>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+
+// LOGO UPLOAD
+logoInput.addEventListener("change", e=>{
+let file=e.target.files[0];
+if(file){
+let reader=new FileReader();
+reader.onload=ev=>logoPreview.src=ev.target.result;
+reader.readAsDataURL(file);
+}
+});
+
+// SYNCHRO NOM ENTREPRISE → CACHET
+document.getElementById("companyName").addEventListener("input", function(){
+let name = this.textContent;
+document.getElementById("stampTop").textContent = name.toUpperCase() + " GROUPE";
+});
+
+// EDIT CACHET
+function editStamp(part){
+
+let el = document.getElementById(part === "top" ? "stampTop" : "stampBottom");
+
+let newText = prompt("Modifier le texte :", el.textContent);
+
+if(newText && newText.trim() !== ""){
+el.textContent = newText;
+}
+}
+
+// EDIT SIGNATURE
+function editSignature(){
+
+let path = document.getElementById("signaturePath");
+
+let newPath = prompt("Modifier signature (SVG path) :", path.getAttribute("d"));
+
+if(newPath && newPath.trim() !== ""){
+path.setAttribute("d", newPath);
+}
+}
+
+// POPUP
+function openPopup(){
+popup.style.display="flex";
+}
+
+function check(){
+if(code.value==="233"){
+popup.style.display="none";
+html2pdf().from(document.getElementById("contrat")).save();
+}else{
+err.innerText="Code incorrect";
+}
+}
+
+</script>
+
+</body>
+  </html>

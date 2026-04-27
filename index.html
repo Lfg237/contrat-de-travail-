@@ -12,6 +12,10 @@ font-family:Arial;
 background:#0b1220;
 }
 
+*{
+box-sizing:border-box;
+}
+
 .container{
 max-width:850px;
 margin:40px auto;
@@ -133,7 +137,7 @@ font-size:16px;
 margin:2px 0;
 }
 
-/* SIGNATURE DESSINÉE AMÉLIORÉE */
+/* SIGNATURE DESSINÉE */
 .signature-draw{
 width:130px;
 height:35px;
@@ -165,21 +169,22 @@ display:none;
 justify-content:center;
 align-items:center;
 }
-@media print {
-.container{
-width:210mm;
-min-height:297mm;
-}
-.container{
-margin:40px auto;
-padding:40px 35px; /* 🔴 augmente l’espace haut/bas */
-}
 
 .popup-box{
 background:white;
 padding:20px;
 border-radius:10px;
 text-align:center;
+}
+
+/* PRINT FIX PRO */
+@media print {
+.container{
+width:210mm;
+min-height:297mm;
+margin:0;
+padding:20mm;
+}
 }
 </style>
 
@@ -230,12 +235,12 @@ text-align:center;
 
 <label>Salaire / montant</label>
 <input value="150 000 FCFA">
+
 <label>avance</label>
 <input value="150 000 FCFA">
+
 <label>reste</label>
 <input value="150 000 FCFA">
-
-
 
 <div class="text">
 <p>
@@ -255,7 +260,6 @@ Lesfacilitateurs Groupe
 
 <small>Signature entreprise</small>
 
-<!-- CACHEt + SIGNATURE -->
 <div class="stamp-overlay">
 
 <div class="stamp-box">
@@ -270,7 +274,6 @@ ETS LESFACILITATEURS GROUPE
 YAOUNDÉ NYOM3 • +237 670 035 609
 </div>
 
-<!-- SIGNATURE DESSINÉE -->
 <svg viewBox="0 0 200 60" class="signature-draw" onclick="editSignature()">
 <path id="signaturePath"
 d="M5 38 C20 10, 40 55, 65 30 S105 35, 125 42 S150 48, 180 25"
@@ -299,6 +302,7 @@ Signature Employé / client
 </div>
 
 <button onclick="downloadPDF()" id="btnPdf">📄 Télécharger PDF</button>
+
 </div>
 
 <!-- POPUP -->
@@ -326,7 +330,7 @@ reader.readAsDataURL(file);
 }
 });
 
-// SYNCHRO NOM ENTREPRISE → CACHET
+// SYNC NOM ENTREPRISE
 document.getElementById("companyName").addEventListener("input", function(){
 let name = this.textContent;
 document.getElementById("stampTop").textContent = name.toUpperCase() + " GROUPE";
@@ -356,43 +360,46 @@ path.setAttribute("d", newPath);
 }
 }
 
-// POPUP
+// PDF FAST & STABLE
 function downloadPDF(){
 
 let btn = document.getElementById("btnPdf");
 btn.innerText = "Génération...";
 btn.disabled = true;
 
-const element = document.getElementById("contrat");
-
-const opt = {
-margin: [10, 10, 12, 10],
-filename: 'contrat.pdf',
-image: { type: 'jpeg', quality: 0.95 },
-html2canvas: {
-scale: 1.5,   // 🔴 réduit = plus rapide
-useCORS: true,
-scrollY: 0
-},
-jsPDF: {
-unit: 'mm',
-format: 'a4',
-orientation: 'portrait'
-},
-pagebreak: { mode: ['css', 'legacy'] }
-};
-
 html2pdf()
-.set(opt)
-.from(element)
+.set({
+margin: 10,
+filename: 'contrat.pdf',
+image: { type: 'jpeg', quality: 0.85 },
+html2canvas: { scale: 1.2, useCORS: true },
+jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+pagebreak: { mode: ['css'] }
+})
+.from(document.getElementById("contrat"))
 .save()
-.then(() => {
+.then(()=>{
 btn.innerText = "📄 Télécharger PDF";
 btn.disabled = false;
 });
 
 }
+
+// POPUP
+function openPopup(){
+popup.style.display="flex";
+}
+
+function check(){
+if(code.value==="233"){
+popup.style.display="none";
+downloadPDF();
+}else{
+err.innerText="Code incorrect";
+}
+}
+
 </script>
 
 </body>
-  </html>
+</html>
